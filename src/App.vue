@@ -40,11 +40,10 @@ const setLogout = () => {
   isLoggedIn.value = false;
 };
 onMounted(() => {
-  console.log(getCookie("firebase_token"));
-  // if (getCookie("firebase_token")) {
-  //   isLoggedIn.value = true;
-  //   console.log(getCookie("firebase_token"));
-  // }
+  if (getCookie("firebase_token")) {
+    isLoggedIn.value = true;
+    console.log(getCookie("firebase_token"));
+  }
 });
 </script>
 

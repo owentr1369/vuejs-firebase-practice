@@ -52,9 +52,8 @@ const onSignUp = () => {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      console.log(user.accessToken);
       if (user.accessToken) {
-        setCookie("firebase_token", user.token, 3);
+        setCookie("firebase_token", user.accessToken, 3);
         props.setLogin();
       }
     })
