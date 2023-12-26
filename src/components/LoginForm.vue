@@ -22,10 +22,11 @@
 import { auth } from "@/firebase/init";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { ref, defineProps } from "vue";
-const loginForm = ref({ password: "", email: "" });
+const loginForm = ref({ password: "Password", email: "tam1306@gmail.com" });
 
 const props = defineProps({
   changeStep: Function,
+  setLogin: Function,
 });
 
 const setCookie = (name, value, days) => {
@@ -51,8 +52,10 @@ const onSignUp = () => {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      if (user.token) {
+      console.log(user.accessToken);
+      if (user.accessToken) {
         setCookie("firebase_token", user.token, 3);
+        props.setLogin();
       }
     })
     .catch((error) => {
