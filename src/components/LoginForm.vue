@@ -22,12 +22,21 @@
 import { auth } from "@/firebase/init";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { ref, defineProps } from "vue";
-
 const loginForm = ref({ password: "", email: "" });
 
 const props = defineProps({
   changeStep: Function,
 });
+
+const setCookie = (name, value, days) => {
+  let expires = "";
+  if (days) {
+    const date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = `; expires=${date.toUTCString()}`;
+  }
+  document.cookie = `${name}=${value || ""}${expires}; path=/`;
+};
 
 const onSignUp = () => {
   //   console.log({
@@ -42,8 +51,9 @@ const onSignUp = () => {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      // ...
-      console.log(user);
+      if (user.token) {
+        setCookie("firebase_token", user.token, 3);
+      }
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -52,6 +62,10 @@ const onSignUp = () => {
       console.log(errorMessage);
     });
 };
+
+// onMounted(() => {
+//   console.log(setCookie);
+// });
 </script>
 
 <style lang="scss" scoped>

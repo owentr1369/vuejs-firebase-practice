@@ -17,6 +17,7 @@
 import { auth } from "@/firebase/init";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { ref, defineProps } from "vue";
+// import { setCookie } from "../utils/cookies";
 
 const signUpForm = ref({ username: "", password: "", email: "" });
 
@@ -35,6 +36,7 @@ const onSignUp = () => {
         displayName: signUpForm.value.username,
       }).then(() => {
         console.log(auth.currentUser.displayName);
+        // setCookie("firebase_token", auth.currentUser.token, 3);
       });
     })
     .catch((error) => {
