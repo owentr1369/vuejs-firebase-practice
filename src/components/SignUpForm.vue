@@ -8,13 +8,18 @@
       placeholder="Password"
     />
     <input type="submit" value="Sign Up" />
+    Have account? <a href="#" @click="props.changeStep('login')">Login</a>
   </form>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, defineProps } from "vue";
 
 const signUpForm = ref({ username: "", password: "", email: "" });
+
+const props = defineProps({
+  changeStep: Function,
+});
 
 const onSignUp = () => {
   console.log({

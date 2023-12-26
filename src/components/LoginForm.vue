@@ -13,13 +13,19 @@
       autocomplete="current-password"
     />
     <input type="submit" value="Login" />
+    Don't have account?
+    <a href="#" @click="props.changeStep('signup')">Sign Up</a>
   </form>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, defineProps } from "vue";
 
 const loginForm = ref({ password: "", email: "" });
+
+const props = defineProps({
+  changeStep: Function,
+});
 
 const onSignUp = () => {
   console.log({

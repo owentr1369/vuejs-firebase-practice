@@ -1,7 +1,16 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
-  <SignUpForm v-if="step == 'signup'" />
-  <LoginForm v-else-if="step == 'login'" />
+  <template v-if="!isLoggedIn">
+    <SignUpForm :changeStep="changeStep" v-if="step == 'signup'" />
+    <LoginForm :changeStep="changeStep" v-else-if="step == 'login'" />
+  </template>
+  <template v-else>
+    <div class="welcome">
+      <h1>Welcome to the app!</h1>
+      <button @click="isLoggedIn = true">Login</button>
+      <button @click="isLoggedIn = false">Sign Up</button>
+    </div>
+  </template>
 </template>
 
 <script setup>
@@ -10,6 +19,10 @@ import { ref } from "vue";
 import LoginForm from "./components/LoginForm.vue";
 import SignUpForm from "./components/SignUpForm.vue";
 const step = ref("login");
+const isLoggedIn = ref(false);
+const changeStep = (newStep) => {
+  step.value = newStep;
+};
 </script>
 
 <style lang="scss">
