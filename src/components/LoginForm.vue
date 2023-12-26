@@ -1,10 +1,16 @@
 <template>
   <form @submit.self.prevent="onSignUp" class="signup-form">
-    <input type="text" v-model="signUpForm.email" placeholder="Email" />
+    <input
+      type="text"
+      v-model="loginForm.email"
+      placeholder="Email"
+      autocomplete="username"
+    />
     <input
       type="password"
-      v-model="signUpForm.password"
+      v-model="loginForm.password"
       placeholder="Password"
+      autocomplete="current-password"
     />
     <input type="submit" value="Login" />
   </form>
@@ -13,13 +19,12 @@
 <script setup>
 import { ref } from "vue";
 
-const signUpForm = ref({ username: "", password: "", email: "" });
+const loginForm = ref({ password: "", email: "" });
 
 const onSignUp = () => {
   console.log({
-    username: signUpForm.value.username,
-    password: signUpForm.value.password,
-    email: signUpForm.value.email,
+    password: loginForm.value.password,
+    email: loginForm.value.email,
   });
 };
 </script>
