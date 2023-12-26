@@ -1,7 +1,6 @@
 <template>
   <form @submit.self.prevent="onSignUp" class="signup-form">
     <input type="text" v-model="signUpForm.email" placeholder="Email" />
-    <input type="text" v-model="signUpForm.username" placeholder="Username" />
     <input
       type="password"
       v-model="signUpForm.password"
@@ -13,20 +12,28 @@
 </template>
 
 <script setup>
+import { auth } from "@/firebase/init";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, defineProps } from "vue";
 
-const signUpForm = ref({ username: "", password: "", email: "" });
+const signUpForm = ref({ password: "", email: "" });
 
 const props = defineProps({
   changeStep: Function,
 });
 
 const onSignUp = () => {
-  console.log({
-    username: signUpForm.value.username,
-    password: signUpForm.value.password,
-    email: signUpForm.value.email,
-  });
+  createUserWithEmailAndPassword(
+    auth,
+    signUpForm.value.email,
+    signUpForm.value.password
+  )
+    .then((credential) => {
+      console.log(credential.user);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 </script>
 

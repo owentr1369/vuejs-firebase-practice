@@ -18,7 +18,7 @@ import { ref } from "vue";
 
 import LoginForm from "./components/LoginForm.vue";
 import SignUpForm from "./components/SignUpForm.vue";
-const step = ref("login");
+const step = ref("signup");
 const isLoggedIn = ref(false);
 const changeStep = (newStep) => {
   step.value = newStep;
