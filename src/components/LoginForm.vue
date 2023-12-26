@@ -19,6 +19,8 @@
 </template>
 
 <script setup>
+import { auth } from "@/firebase/init";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { ref, defineProps } from "vue";
 
 const loginForm = ref({ password: "", email: "" });
@@ -28,10 +30,27 @@ const props = defineProps({
 });
 
 const onSignUp = () => {
-  console.log({
-    password: loginForm.value.password,
-    email: loginForm.value.email,
-  });
+  //   console.log({
+  //     password: loginForm.value.password,
+  //     email: loginForm.value.email,
+  //   });
+  signInWithEmailAndPassword(
+    auth,
+    loginForm.value.email,
+    loginForm.value.password
+  )
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      // ...
+      console.log(user);
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode);
+      console.log(errorMessage);
+    });
 };
 </script>
 
